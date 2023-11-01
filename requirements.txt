@@ -9,3 +9,4 @@ plotly
 joblib
 ngboost
 streamlit_folium
+geopandas
