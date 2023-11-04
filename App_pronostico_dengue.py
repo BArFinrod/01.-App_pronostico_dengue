@@ -37,45 +37,35 @@ from pathlib import Path
     #     'mean_PRECIP_distrito_t1','var_PRECIP_distrito_t1']]
 st.title("Modelo de Machine Learning probabilístico para el pronóstico de brotes de Dengue en los distritos de Piura")
 
-st.text("El presente proyecto tiene por objetivo pronosticar los brotes de Dengue a nivel distrital en Piura, considerando un grupo de variables\
-        independiente y utilizando técnicas de Machine Learning probabilístico.")
+st.text("El presente proyecto tiene por objetivo pronosticar los brotes de Dengue a nivel distrital en Piura, considerando un grupo de variables independiente y utilizando técnicas de Machine Learning probabilístico.")
 
 st.text("Definiciones:")
 
 st.text("Brote: cuando se presenta 1 o más casos en un distrito a la semana y al menos en las 4 semanas anteriores no se reportó ningún caso en este distrito.")
 
-st.text("Bajo esta definición, entre 2022 y lo que va de 2023, en los 65 distritos de Piura se han sucitado 115 episodios (semanas) de brote, y 2,833 semanas en las\
-         que no se diagnosticaron casos. Así, la proporción de semanas con episodios de brote es de apenas el 3.9% del total de semanas analizadas.")
+st.text("Bajo esta definición, entre 2022 y lo que va de 2023, en los 65 distritos de Piura se han sucitado 115 episodios (semanas) de brote, y 2,833 semanas en las que no se diagnosticaron casos. Así, la proporción de semanas con episodios de brote es de apenas el 3.9% del total de semanas analizadas.")
 
 st.text("Se ha utilizado como muestras de entrenamiento a la información de 2022 y hasta la semana 11 de 2023 y como test desde la semana 11 hasta la semana 27.")
 
-st.text("Los resultados del pronóstico en la muestra de test indica un bajo desempeño, 44.8% de recall y 19.4% de precisión y un indicador F1-score de 0.27. Sin embargo,\
-         debe considerarse que: (1) la detección de episodios de brote es muy dificil, considerando que solo 3.9% de las semanas tuvo un episodio de brote y (2)\
-         la información hidrometereológica ha sido de gran importancia; sin embargo, no se cuenta con la información completa de todas las estaciones en todos los distritos\
-        , para este proyecto se contó con la información de las estaciones de 7 distritos. El resto fue imputado con el promedio provincial o regional.")
+st.text("Los resultados del pronóstico en la muestra de test indica un bajo desempeño, 44.8% de recall y 19.4% de precisión y un indicador F1-score de 0.27. Sin embargo, debe considerarse que: (1) la detección de episodios de brote es muy dificil, considerando que solo 3.9% de las semanas tuvo un episodio de brote y (2)\
+         la información hidrometereológica ha sido de gran importancia; sin embargo, no se cuenta con la información completa de todas las estaciones en todos los distritos, para este proyecto se contó con la información de las estaciones de 7 distritos. El resto fue imputado con el promedio provincial o regional.")
 
-st.text("Como variables independientes se han utilizado a variables relacionadas a las condiciones de vida obtenidas del Censo Nacional 2017, variables\
-         hidrológicas (precipitaciones) provenientes de los datos abiertos del Gobierno Regional de Piura y que solo comprenden a 2022 y 2023.")
+st.text("Como variables independientes se han utilizado a variables relacionadas a las condiciones de vida obtenidas del Censo Nacional 2017, variables hidrológicas (precipitaciones) provenientes de los datos abiertos del Gobierno Regional de Piura y que solo comprenden a 2022 y 2023.")
 
-st.text("Asimismo, se añadieron variables proxy relacionadas al modelo Susceptible-Infected-Recovered (SIR), como el número de personas en cada distrito (Susceptible)\
-         el número de infectados en semanas anteriores en el distrito y los distritos vecinos (Infected). Se ha tomado en cuenta la información de los distritos vecinos\
-         debido a que es plausible suponer la movilidad de individuos entre distritos. Un distrito vecino es aquel distrito que comparte frontera con el distrito analizado.\
-         Se ha considerado la cantidad de infectados en los distritos vecinos una, dos y tres semanas antes.")
+st.text("Asimismo, se añadieron variables proxy relacionadas al modelo Susceptible-Infected-Recovered (SIR), como el número de personas en cada distrito (Susceptible) el número de infectados en semanas anteriores en el distrito y los distritos vecinos (Infected). Se ha tomado en cuenta la información de los distritos vecinos\
+         debido a que es plausible suponer la movilidad de individuos entre distritos. Un distrito vecino es aquel distrito que comparte frontera con el distrito analizado. Se ha considerado la cantidad de infectados en los distritos vecinos una, dos y tres semanas antes.")
 
-st.text("Con respecto a las variables hidrológicas (precipitaciones), se ha considerado la información promedio de las estaciones en cada distrito\
-         en las que se encuentran. Asimismo, se ha utilizado la información referida a una y dos semanas anteriores, debido a que las\
+st.text("Con respecto a las variables hidrológicas (precipitaciones), se ha considerado la información promedio de las estaciones en cada distrito en las que se encuentran. Asimismo, se ha utilizado la información referida a una y dos semanas anteriores, debido a que las\
          precipitaciones y acumulación de agua permiten el crecimiento de la población de mosquitos y el periodo de incubación se encuentra en promedio en 7 días.")
 
-st.text("Con respecto al aspecto técnico, se ha utilizado específicamente el algoritmo Natural Gradient Boosting, cuyo resultado no son valores únicos\
-         (como casos de dengue), sino parámetros de distribuciones, lo que permite, además, obtener intervalos de probabilidad de ocurrencia del pronóstico.")
+st.text("Con respecto al aspecto técnico, se ha utilizado específicamente el algoritmo Natural Gradient Boosting, cuyo resultado no son valores únicos (como casos de dengue), sino parámetros de distribuciones, lo que permite, además, obtener intervalos de probabilidad de ocurrencia del pronóstico.")
 
-st.text("La Tabla 01 contiene a la información sobre el número de casos de los distritos vecinos y las variables hidrometereológicas.\
-         Estas son las variables que cambian cada semana. Las variables de características sociales obtenidas del censo, como porcentaje de viviendas\
-         con techo de concreto, porcentaje de viviendas con acceso a agua, etc. no cambian en el tiempo y no se encuentran en la tabla, pero \
-        sí fueron parte del modelo.")
+st.text("La Tabla 01 contiene a la información sobre el número de casos de los distritos vecinos y las variables hidrometereológicas. Estas son las variables que cambian cada semana. Las variables de características sociales obtenidas del censo, como porcentaje de viviendas\
+         con techo de concreto, porcentaje de viviendas con acceso a agua, etc. no cambian en el tiempo y no se encuentran en la tabla, pero sí fueron parte del modelo.")
 
 st.text("Asimismo, se ha añadido una variable binaria que indica si el distrito fue afectado por el fenómeno de El Niño en 2007.")
 
+st.text("PUEDE MODIFICAR EL VALOR DE LAS VARIABLES EN LA TABLA Y VER COMO CAMBIAN LAS PROBABILIDADES DE BROTE DE DENGUE EN CADA DISTRITO.")
 
 
 #%%
